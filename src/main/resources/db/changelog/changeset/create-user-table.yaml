@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user
+      author: Nurgissa Kabarbek
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: userid
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: password
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+#        - createIndex:
+#            tableName: users
+#            columns:
+#              - email
+#            indexName: idx_email
+#        - createIndex:
+#            tableName: users
+#            columns:
+#              - username
+#            indexName: idx_username
