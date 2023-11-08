@@ -29,10 +29,17 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
-                        req.requestMatchers("api/v1/auth/**")
+                        req.
+                                requestMatchers("/api/v1/auth/**",
+                                        "/api/v1/user/**",
+                                        "/v3/api-docs",
+                                        "/v3/api-docs/**",
+                                        "/swagger-ui/**",
+                                        "/swagger-ui.html"
+                                )
                                 .permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/v1/user").hasAnyRole(Role.USER.name())
-                                .requestMatchers("/api/v1/admin").hasRole(Role.ADMIN.name())
+//                                .requestMatchers(HttpMethod.GET, "/api/v1/user").hasAnyRole(Role.USER.name())
+//                                .requestMatchers("/api/v1/admin").hasRole(Role.ADMIN.name())
                                 .anyRequest()
                                 .authenticated()
                 )

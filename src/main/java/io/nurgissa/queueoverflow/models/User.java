@@ -2,6 +2,7 @@ package io.nurgissa.queueoverflow.models;
 
 
 import io.nurgissa.queueoverflow.models.enums.Role;
+import io.nurgissa.queueoverflow.token.JwtToken;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,6 +38,9 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<JwtToken> tokens;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

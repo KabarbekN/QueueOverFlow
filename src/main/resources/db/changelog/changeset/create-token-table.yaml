@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-token
+      author: Nurgissa Kabarbek
+      changes:
+        - createTable:
+            tableName: token
+            columns:
+              - column:
+                  name: tokenid
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: token
+                  type: varchar(1000)
+              - column:
+                  name: token_type
+                  type: varchar(32)
+              - column:
+                  name: expired
+                  type: boolean
+              - column:
+                  name: revoked
+                  type: boolean
+              - column:
+                  name: userid
+                  type: bigint
+                  constraints:
+                    foreignKeyName: FK_token_user

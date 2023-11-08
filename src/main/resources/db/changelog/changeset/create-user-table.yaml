@@ -18,7 +18,6 @@ databaseChangeLog:
                   type: varchar(200)
                   constraints:
                     nullable: false
-
               - column:
                   name: password
                   type: varchar(200)
