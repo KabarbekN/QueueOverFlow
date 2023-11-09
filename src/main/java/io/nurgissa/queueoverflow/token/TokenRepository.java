@@ -1,8 +1,8 @@
 package io.nurgissa.queueoverflow.token;
 
-import io.jsonwebtoken.Jwt;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,8 +18,11 @@ public interface TokenRepository extends JpaRepository<JwtToken, Long> {
                 where u.userid = :userId and (t.expired = false or t.revoked = false )
             """
     )
-    List<JwtToken> findAllValidTokensByUser(Long userId);
+    List<JwtToken> findAllValidTokensByUser(@Param("userId") Long userId);
 
+//    Optional<JwtToken> findByToken(String token);
+
+    @Query("select j from JwtToken j where j.token = ?1")
     Optional<JwtToken> findByToken(String token);
 
 }

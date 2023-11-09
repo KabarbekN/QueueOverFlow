@@ -1,6 +1,8 @@
 package io.nurgissa.queueoverflow.token;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.nurgissa.queueoverflow.models.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,8 +22,6 @@ public class JwtToken {
     private Long tokenid;
 
     private String token;
-
-
     @Enumerated(EnumType.STRING)
     private TokenType tokenType;
 
@@ -29,7 +29,8 @@ public class JwtToken {
 
    private boolean revoked;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
+    @JsonIgnore
     private User user;
 }

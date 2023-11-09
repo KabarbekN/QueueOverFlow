@@ -42,6 +42,8 @@ public class AuthenticationService {
 
     private void revokeAllUserTokens(User user){
         var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getUserid());
+        System.out.println(validUserTokens + "from auth service revoke");
+
         if (validUserTokens.isEmpty())
             return;
         validUserTokens.forEach( t -> {
@@ -64,17 +66,24 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request){
+        System.out.println(request.getUsername());
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
                         request.getPassword()
                 )
         );
-        var user = userRepository.findByUsername(request
-                        .getUsername())
-                .orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
+        System.out.println(request);
+        String username = request.getUsername();
+        System.out.println(username);
+        System.out.println(userRepository.findByUsername(username));
+        User user = userRepository.findByUsername(username).orElseThrow();
 
+//        var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getUserid());
+//        System.out.println(validUserTokens);
+
+        var jwtToken = jwtService.generateToken(user);
         saveUserToken(user, jwtToken);
         return AuthenticationResponse.builder()
                 .token(jwtToken)

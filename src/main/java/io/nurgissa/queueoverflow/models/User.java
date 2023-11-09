@@ -1,6 +1,8 @@
 package io.nurgissa.queueoverflow.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.nurgissa.queueoverflow.models.enums.Role;
 import io.nurgissa.queueoverflow.token.JwtToken;
 import jakarta.persistence.*;
@@ -40,6 +42,7 @@ public class User implements UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<JwtToken> tokens;
 
     @Override
