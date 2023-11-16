@@ -3,4 +3,6 @@ databaseChangeLog:
       file: db/changelog/changeset/create-user-table.yaml
   - include:
       file: db/changelog/changeset/create-token-table.yaml
+  - include:
+      file: db/changelog/changeset/create-question-table.yaml
 

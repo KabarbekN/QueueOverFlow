@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-question
+      author: Nurgissa Kabarbek
+      changes:
+        - createTable:
+            tableName: question
+            columns:
+              - column:
+                  name: questionid
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: userid
+                  type: bigint
+                  constraints:
+                    foreignKeyName: FK_question_user
+                    references: users(userid)
+              - column:
+                  name: creationtime
+                  type: bigint
+        - addForeignKeyConstraint:
+            baseTableName: question
+            baseColumnNames: userid
+            referencedTableName: users
+            referencedColumnNames: userid
+            constraintName:
+            onDelete: CASCADE
+            onUpdate: CASCADE

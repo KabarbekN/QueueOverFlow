@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
     @GetMapping
-    @PreAuthorize("hasAuthority('admin:read')")
+    @PreAuthorize("hasAuthority('admin:read')") // it works anyway without this because in security configuration all of this was added
+    @Hidden
     public String get() {
         return "GET:: admin controller";
     }

@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-answer
+      author: Nurgissa Kabarbek
+      changes:
+        - createTable:
+            tableName: answer
+            columns:
+              - column:
+                  name: answerid
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: content
+                  type: TEXT
+              - column:
+                  name: userid
+                  type: bigint
+                  constraints:
+                    foreignKeyName: FK_answer_user
+                    references: users(userid)
+              - column:
+                  name: questionid
+                  type: bigint
+                  constraints:
+                    foreignKeyName: FK_answer_question
+                    references: question(questionid)
+              - column:
+                  name: creationtime
+                  type: bigint
+

@@ -1,6 +1,6 @@
 spring:
-  liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.yaml
+#  liquibase:
+#    change-log: classpath:db/changelog/db.changelog-master.yaml
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5433/queueOverFlow
@@ -8,7 +8,7 @@ spring:
     password: '0000'
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: false
     properties:
       hibernate:
@@ -16,7 +16,6 @@ spring:
         format_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
 
 application:
   security:
