@@ -1,18 +1,22 @@
 package io.nurgissa.queueoverflow.service;
 
+import io.nurgissa.queueoverflow.models.ChangePasswordRequest;
 import io.nurgissa.queueoverflow.models.User;
 import io.nurgissa.queueoverflow.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 
 public interface UserService {
 
-    public Optional<User> getUserByID(Long id);
+    Optional<User> getUserByID(Long id);
 
-    public List<User> getAllUsers();
+    List<User> getAllUsers();
+
+    void changePassword(ChangePasswordRequest request, Principal connectedUser);
 
 }

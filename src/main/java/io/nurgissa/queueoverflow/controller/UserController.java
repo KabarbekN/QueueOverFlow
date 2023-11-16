@@ -1,6 +1,7 @@
 package io.nurgissa.queueoverflow.controller;
 
 import io.nurgissa.queueoverflow.dto.UserDto;
+import io.nurgissa.queueoverflow.models.ChangePasswordRequest;
 import io.nurgissa.queueoverflow.models.User;
 import io.nurgissa.queueoverflow.repository.UserRepository;
 import io.nurgissa.queueoverflow.service.UserService;
@@ -12,11 +13,9 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @RestController
@@ -52,6 +51,16 @@ public class UserController {
 //    @Hidden To hint specific endpoints or controllers
     public ResponseEntity<?> getUsers(){
         return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+
+    @PatchMapping
+    public ResponseEntity<?> changePassword(
+            @RequestBody ChangePasswordRequest changePasswordRequest,
+            Principal connectedUser
+    ){
+        userService.changePassword(changePasswordRequest, connectedUser);
+        return ResponseEntity.accepted().build();
     }
 
 

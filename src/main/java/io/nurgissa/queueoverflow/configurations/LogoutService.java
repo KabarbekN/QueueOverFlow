@@ -21,7 +21,6 @@ public class LogoutService implements LogoutHandler {
     ) {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
-        System.out.println("here may be problem");
         if (authHeader == null || !authHeader.startsWith("Bearer ")){
             return;
         }
@@ -29,14 +28,11 @@ public class LogoutService implements LogoutHandler {
         jwt = authHeader.substring(7);
         var storedToken = tokenRepository.findByToken(jwt)
                 .orElse(null);
-        System.out.println(tokenRepository.findByToken(jwt));
-        System.out.println("here");
         if (storedToken != null){
             storedToken.setExpired(true);
             storedToken.setRevoked(true);
             tokenRepository.save(storedToken);
             SecurityContextHolder.clearContext();
-            System.out.println("Changed");
         }
 
     }

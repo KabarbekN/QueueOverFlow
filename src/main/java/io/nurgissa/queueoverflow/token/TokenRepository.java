@@ -24,5 +24,4 @@ public interface TokenRepository extends JpaRepository<JwtToken, Long> {
 
     @Query("select j from JwtToken j where j.token = ?1")
     Optional<JwtToken> findByToken(String token);
-
 }
