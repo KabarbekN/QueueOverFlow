@@ -1,4 +1,4 @@
-package io.nurgissa.queueoverflow.models;
+package io.nurgissa.queueoverflow.request;
 
 
 import lombok.Builder;

@@ -1,6 +1,7 @@
 package io.nurgissa.queueoverflow.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,18 +29,31 @@ public class Answer {
 
     @ManyToOne
     @JoinColumn(name = "userid", nullable = false)
+    @JsonIgnore
     private User author;
 
     @ManyToOne
     @JoinColumn(name = "questionid", nullable = false)
+    @JsonIgnore
     private Question question;
 
     @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Vote> votes = new ArrayList<>();
 
     @Column(name = "creationTime")
     private Long createdTime;
+
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "answerId=" + answerId +
+                ", content='" + content + '\'' +
+                ", createdTime=" + createdTime +
+                '}';
+    }
 }

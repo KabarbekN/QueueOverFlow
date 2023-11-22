@@ -27,7 +27,7 @@ public class JwtToken {
 
     private boolean expired;
 
-   private boolean revoked;
+    private boolean revoked;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")

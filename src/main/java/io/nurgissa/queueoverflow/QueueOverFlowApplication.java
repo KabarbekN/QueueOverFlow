@@ -3,6 +3,7 @@ package io.nurgissa.queueoverflow;
 import io.nurgissa.queueoverflow.auth.AuthenticationService;
 import io.nurgissa.queueoverflow.auth.RegisterRequest;
 import io.nurgissa.queueoverflow.models.enums.Role;
+import io.nurgissa.queueoverflow.service.impl.TagServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,7 +38,6 @@ public class QueueOverFlowApplication {
 //                    .role(MODERATOR)
 //                    .build();
 //            System.out.println("Manager token: " + service.register(manager).getAccessToken());
-//
 //        };
 //    }
 

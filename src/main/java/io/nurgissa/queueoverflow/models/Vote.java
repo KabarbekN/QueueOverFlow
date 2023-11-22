@@ -1,5 +1,6 @@
 package io.nurgissa.queueoverflow.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,16 +23,27 @@ public class Vote {
 
     @ManyToOne
     @JoinColumn(name = "userid", nullable = false)
+    @JsonIgnore
     private User author;
 
     @ManyToOne
     @JoinColumn(name = "questionid", nullable = false)
+    @JsonIgnore
     private Question question;
 
     @ManyToOne
     @JoinColumn(name = "answerid", nullable = false)
+    @JsonIgnore
     private Answer answer;
 
     @Column(name = "creationTime")
     private Long createdTime;
+
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "voteId=" + voteId +
+                ", createdTime=" + createdTime +
+                '}';
+    }
 }

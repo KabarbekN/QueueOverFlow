@@ -24,4 +24,9 @@ public interface TokenRepository extends JpaRepository<JwtToken, Long> {
 
     @Query("select j from JwtToken j where j.token = ?1")
     Optional<JwtToken> findByToken(String token);
+
+    @Query("select j from JwtToken j where j.expired = ?1 and j.revoked = ?2")
+    Optional<List<JwtToken>> findByExpiredAndRevoked(boolean expired, boolean revoked);
+
+
 }

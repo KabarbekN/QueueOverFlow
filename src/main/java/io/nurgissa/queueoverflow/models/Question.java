@@ -1,18 +1,18 @@
 package io.nurgissa.queueoverflow.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -24,15 +24,20 @@ public class Question {
     @Column(name = "questionid")
     private Long questionid;
 
-    @Column(name = "title",
-    columnDefinition = "TEXT")
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "content",
+            columnDefinition = "TEXT")
+    private String content;
+
 
     @ManyToOne
     @JoinColumn(name = "userid", nullable = false)
     private User author;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Answer> answers = new ArrayList<>();
 
     @ManyToMany
@@ -45,11 +50,23 @@ public class Question {
 
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Vote> votes = new ArrayList<>();
 
     @Column(name = "creationtime")
     private Long createdTime;
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "questionid=" + questionid +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", createdTime=" + createdTime +
+                '}';
+    }
 }

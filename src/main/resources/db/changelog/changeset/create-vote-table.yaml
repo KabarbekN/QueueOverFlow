@@ -1,34 +1,35 @@
 databaseChangeLog:
   - changeSet:
-      id: create-question
+      id: create-vote
       author: Nurgissa Kabarbek
       changes:
         - createTable:
-            tableName: question
+            tableName: vote
             columns:
               - column:
-                  name: questionid
+                  name: voteid
                   type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: title
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: content
-                  type: TEXT
-                  constraints:
-                    nullable: false
-              - column:
                   name: userid
                   type: bigint
                   constraints:
-                    foreignKeyName: FK_question_user
+                    foreignKeyName: FK_vote_user
                     references: users(userid)
+              - column:
+                  name: questionid
+                  type: bigint
+                  constraints:
+                    foreignKeyName: FK_vote_question
+                    references: question(questionid)
+              - column:
+                  name: answerid
+                  type: bigint
+                  constraints:
+                    foreignKeyName: FK_vote_answer
               - column:
                   name: creationtime
                   type: bigint

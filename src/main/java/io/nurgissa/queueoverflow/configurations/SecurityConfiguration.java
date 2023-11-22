@@ -32,7 +32,9 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
                         req.
-                                requestMatchers("/api/v1/auth/**",
+                                requestMatchers(
+                                         "/api/v1/auth/**",
+//                                        "/api/v1/tag/**",
 //                                        "/api/v1/user/**",
                                         "/v3/api-docs",
                                         "/v3/api-docs/**",
@@ -40,13 +42,21 @@ public class SecurityConfiguration {
                                         "/swagger-ui.html"
                                 )
                                 .permitAll()
-
-                                .requestMatchers("/api/v1/user/**").hasAnyRole(USER.name())
+                                .requestMatchers(GET, "/api/v1/tag/**").permitAll()
+                                .requestMatchers( "/api/v1/question/**").permitAll()
+                                .requestMatchers("/api/v1/user/**").hasAnyRole(USER.name(), ADMIN.name(), MODERATOR.name())
 //                                .requestMatchers(GET, "/api/v1/user/**").hasAnyRole(USER.name())
 //                                .requestMatchers(POST, "/api/v1/user/**").hasAnyRole(USER.name())
 //                                .requestMatchers(GET, "/api/v1/user/**").hasAnyRole(USER.name())
 //                                .requestMatchers(GET, "/api/v1/user/**").hasAnyRole(USER.name())
                                 // For future functionality
+
+                                .requestMatchers("/api/v1/tag/**").hasAnyRole(USER.name(),ADMIN.name(), MODERATOR.name())
+//                                .requestMatchers(GET, "/api/v1/tag/**").hasAnyRole(USER.name(), MODERATOR.name(), ADMIN.name())
+                                .requestMatchers(POST,"/api/v1/tag/**").hasAnyAuthority(ADMIN_CREATE.name(), MODERATOR_CREATE.name())
+                                .requestMatchers(PUT,"/api/v1/tag/**").hasAnyAuthority(ADMIN_UPDATE.name(), MODERATOR_UPDATE.name())
+                                .requestMatchers(DELETE,"/api/v1/tag/**").hasAnyAuthority(ADMIN_DELETE.name(), MODERATOR_DELETE.name())
+
 
                                 .requestMatchers("/api/v1/moderator/**").hasAnyRole(ADMIN.name(), MODERATOR.name())
                                 .requestMatchers(GET, "/api/v1/moderator/**").hasAnyAuthority(ADMIN_READ.name(), MODERATOR_READ.name())

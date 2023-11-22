@@ -3,7 +3,7 @@ package io.nurgissa.queueoverflow.service.impl;
 import io.nurgissa.queueoverflow.dto.UserDto;
 import io.nurgissa.queueoverflow.exceptions.NotSamePasswordsException;
 import io.nurgissa.queueoverflow.mapper.UserMapper;
-import io.nurgissa.queueoverflow.models.ChangePasswordRequest;
+import io.nurgissa.queueoverflow.request.ChangePasswordRequest;
 import io.nurgissa.queueoverflow.models.User;
 import io.nurgissa.queueoverflow.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class UserServiceImpl {
 
     public Optional<UserDto> getUserByID(Long id){
         User user = userRepository.getUserByUserid(id).orElse(null);
-
+        System.out.println(user);
 
         return Optional.of(userMapper.userToUserDto(user));
     }

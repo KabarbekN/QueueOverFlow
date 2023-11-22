@@ -1,13 +1,13 @@
 package io.nurgissa.queueoverflow.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -27,16 +27,29 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "userid", nullable = false)
+    @JsonIgnore
     private User author;
 
     @ManyToOne
     @JoinColumn(name = "questionid")
+    @JsonIgnore
     private Question question;
 
     @ManyToOne
     @JoinColumn(name = "answerid")
+    @JsonIgnore
     private Answer answer;
 
     @Column(name = "creationTime")
     private Long createdTime;
+
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "commentId=" + commentId +
+                ", content='" + content + '\'' +
+                ", createdTime=" + createdTime +
+                '}';
+    }
 }

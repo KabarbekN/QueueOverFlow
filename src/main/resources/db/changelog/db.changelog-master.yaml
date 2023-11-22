@@ -5,4 +5,13 @@ databaseChangeLog:
       file: db/changelog/changeset/create-token-table.yaml
   - include:
       file: db/changelog/changeset/create-question-table.yaml
-
+  - include:
+      file: db/changelog/changeset/create-answer-table.yaml
+  - include:
+      file: db/changelog/changeset/create-comment-table.yaml
+  - include:
+      file: db/changelog/changeset/create-tag-table.yaml
+  - include:
+      file: db/changelog/changeset/create-vote-table.yaml
+  - include:
+      file: db/changelog/changeset/create-question-tags-join-table.yaml

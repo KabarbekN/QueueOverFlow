@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-question-tags-join-table.yaml
+      author: Nurgissa Kabarbek
+      changes:
+        - createTable:
+            tableName: question_tags
+            columns:
+              - column:
+                  name: questionid
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: tagid
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+        - addForeignKeyConstraint:
+            constraintName: FK_question_tags_question
+            baseTableName: question_tags
+            baseColumnNames: questionid
+            referencedTableName: question
+            referencedColumnNames: questionid
+            onDelete: CASCADE
+            onUpdate: CASCADE
+        - addForeignKeyConstraint:
+            constraintName: FK_question_tags_tag
+            baseTableName: question_tags
+            baseColumnNames: tagid
+            referencedTableName: tag
+            referencedColumnNames: tagid
+            onUpdate: CASCADE
+            onDelete: CASCADE

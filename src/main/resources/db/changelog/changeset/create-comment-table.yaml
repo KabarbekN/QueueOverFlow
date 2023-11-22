@@ -1,34 +1,40 @@
 databaseChangeLog:
   - changeSet:
-      id: create-question
+      id: create-comment
       author: Nurgissa Kabarbek
       changes:
         - createTable:
-            tableName: question
+            tableName: comment
             columns:
               - column:
-                  name: questionid
+                  name: commentid
                   type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: title
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
-              - column:
                   name: content
                   type: TEXT
-                  constraints:
-                    nullable: false
               - column:
                   name: userid
                   type: bigint
                   constraints:
-                    foreignKeyName: FK_question_user
+                    foreignKeyName: FK_comment_user
                     references: users(userid)
+              - column:
+                  name: questionid
+                  type: bigint
+                  constraints:
+                    foreignKeyName: FK_comment_question
+                    references: question(questionid)
+              - column:
+                  name: answerid
+                  type: bigint
+                  constraints:
+                    foreignKeyName: FK_comment_answer
+                    references: answer(answerid)
               - column:
                   name: creationtime
                   type: bigint
+

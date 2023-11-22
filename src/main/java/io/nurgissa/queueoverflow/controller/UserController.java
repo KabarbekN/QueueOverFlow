@@ -1,12 +1,8 @@
 package io.nurgissa.queueoverflow.controller;
 
 import io.nurgissa.queueoverflow.dto.UserDto;
-import io.nurgissa.queueoverflow.models.ChangePasswordRequest;
-import io.nurgissa.queueoverflow.models.User;
-import io.nurgissa.queueoverflow.repository.UserRepository;
-import io.nurgissa.queueoverflow.service.UserService;
+import io.nurgissa.queueoverflow.request.ChangePasswordRequest;
 import io.nurgissa.queueoverflow.service.impl.UserServiceImpl;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -16,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/user")

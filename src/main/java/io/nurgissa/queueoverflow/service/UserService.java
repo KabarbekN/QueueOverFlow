@@ -1,10 +1,7 @@
 package io.nurgissa.queueoverflow.service;
 
-import io.nurgissa.queueoverflow.models.ChangePasswordRequest;
+import io.nurgissa.queueoverflow.request.ChangePasswordRequest;
 import io.nurgissa.queueoverflow.models.User;
-import io.nurgissa.queueoverflow.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
