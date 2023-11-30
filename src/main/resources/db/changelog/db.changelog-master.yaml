@@ -15,3 +15,8 @@ databaseChangeLog:
       file: db/changelog/changeset/create-vote-table.yaml
   - include:
       file: db/changelog/changeset/create-question-tags-join-table.yaml
+  - include:
+      file: db/changelog/changeset/update-user-table.yaml
+  - include:
+      file: db/changelog/changeset/update-vote-table.yaml
+

@@ -1,4 +1,4 @@
-package io.nurgissa.queueoverflow.dto;
+package io.nurgissa.queueoverflow.dto.question;
 
 import io.nurgissa.queueoverflow.models.Tag;
 import io.nurgissa.queueoverflow.models.User;
@@ -18,6 +18,5 @@ import java.util.Set;
 public class CreateQuestionDto {
     private String title;
     private String content;
-    private User user;
-    private Set<Tag> tags;
+    private Set<Long> tagIds;
 }

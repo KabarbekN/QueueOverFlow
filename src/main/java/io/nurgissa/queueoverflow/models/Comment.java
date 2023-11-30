@@ -40,7 +40,7 @@ public class Comment {
     @JsonIgnore
     private Answer answer;
 
-    @Column(name = "creationTime")
+    @Column(name = "creationtime")
     private Long createdTime;
 
 

@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: update-vote-answerid
+      author: Nurgissa Kabarbek
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: FK_vote_answer
+            referencedTableName: answer
+            referencedColumnNames: answerid
+            referencesUniqueColumn: true
+            baseTableName: vote
+            baseColumnNames: answerid
+            onDelete: CASCADE
+            onUpdate: CASCADE
+        - addColumn:
+            tableName: vote
+            columns:
+              - column:
+                  name: value
+                  type: int
+                  constraints:
+                    nullable: false

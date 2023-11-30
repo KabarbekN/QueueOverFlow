@@ -1,4 +1,4 @@
-package io.nurgissa.queueoverflow.dto;
+package io.nurgissa.queueoverflow.dto.question;
 
 
 import lombok.*;
@@ -12,5 +12,5 @@ import org.springframework.stereotype.Service;
 public class QuestionDto {
     private String title;
     private String content;
-    private Long creationTime;
+    private String createdTime;
 }

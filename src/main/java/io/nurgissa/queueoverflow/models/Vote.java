@@ -36,7 +36,27 @@ public class Vote {
     @JsonIgnore
     private Answer answer;
 
-    @Column(name = "creationTime")
+
+    @Column(name = "value")
+    private Integer value;
+
+    public enum VoteValue {
+        UPVOTE(1),
+        DOWNVOTE(-1);
+
+        private final Integer value;
+
+        VoteValue(Integer value) {
+            this.value = value;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+    }
+
+
+    @Column(name = "creationtime")
     private Long createdTime;
 
     @Override

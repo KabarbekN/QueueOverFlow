@@ -29,7 +29,6 @@ public class Answer {
 
     @ManyToOne
     @JoinColumn(name = "userid", nullable = false)
-    @JsonIgnore
     private User author;
 
     @ManyToOne
@@ -45,7 +44,7 @@ public class Answer {
     @JsonIgnore
     private List<Vote> votes = new ArrayList<>();
 
-    @Column(name = "creationTime")
+    @Column(name = "creationtime")
     private Long createdTime;
 
     @Override

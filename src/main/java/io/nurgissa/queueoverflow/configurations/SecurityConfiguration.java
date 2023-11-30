@@ -3,16 +3,22 @@ package io.nurgissa.queueoverflow.configurations;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+
+import java.nio.file.AccessDeniedException;
 
 import static io.nurgissa.queueoverflow.models.enums.Permission.*;
 import static io.nurgissa.queueoverflow.models.enums.Role.*;
@@ -44,12 +50,20 @@ public class SecurityConfiguration {
                                 .permitAll()
                                 .requestMatchers(GET, "/api/v1/tag/**").permitAll()
                                 .requestMatchers( "/api/v1/question/**").permitAll()
+                                .requestMatchers(GET, "/api/v1/answer/**").permitAll()
+                                .requestMatchers(GET, "/api/v1/comment/**").permitAll()
+
                                 .requestMatchers("/api/v1/user/**").hasAnyRole(USER.name(), ADMIN.name(), MODERATOR.name())
 //                                .requestMatchers(GET, "/api/v1/user/**").hasAnyRole(USER.name())
 //                                .requestMatchers(POST, "/api/v1/user/**").hasAnyRole(USER.name())
 //                                .requestMatchers(GET, "/api/v1/user/**").hasAnyRole(USER.name())
 //                                .requestMatchers(GET, "/api/v1/user/**").hasAnyRole(USER.name())
                                 // For future functionality
+                                .requestMatchers( DELETE, "/api/v1/answer/**").hasAnyRole(USER.name(), ADMIN.name(), MODERATOR.name())
+                                .requestMatchers( DELETE, "/api/v1/comment/**").hasAnyRole(USER.name(), ADMIN.name(), MODERATOR.name())
+                                .requestMatchers( DELETE, "/api/v1/question/**").hasAnyRole(USER.name(), ADMIN.name(), MODERATOR.name())
+
+
 
                                 .requestMatchers("/api/v1/tag/**").hasAnyRole(USER.name(),ADMIN.name(), MODERATOR.name())
 //                                .requestMatchers(GET, "/api/v1/tag/**").hasAnyRole(USER.name(), MODERATOR.name(), ADMIN.name())
@@ -82,4 +96,5 @@ public class SecurityConfiguration {
                                 .logoutSuccessHandler(((request, response, authentication) -> SecurityContextHolder.clearContext())));
         return http.build();
     }
+
 }
