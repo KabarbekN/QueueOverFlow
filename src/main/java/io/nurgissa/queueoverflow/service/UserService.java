@@ -1,5 +1,8 @@
 package io.nurgissa.queueoverflow.service;
 
+import io.nurgissa.queueoverflow.dto.UserDto;
+import io.nurgissa.queueoverflow.dto.UserProfileDto;
+import io.nurgissa.queueoverflow.repository.dao.SearchRequest;
 import io.nurgissa.queueoverflow.request.ChangePasswordRequest;
 import io.nurgissa.queueoverflow.models.User;
 
@@ -10,10 +13,13 @@ import java.util.Optional;
 
 public interface UserService {
 
-    Optional<User> getUserByID(Long id);
+    UserDto getUserByID(Long id);
 
-    List<User> getAllUsers();
+    List<UserDto> getAllUsers();
 
     void changePassword(ChangePasswordRequest request, Principal connectedUser);
 
+    List<UserDto> findAllByCriteria(SearchRequest searchRequest);
+
+    Optional<UserProfileDto> getUserByID(Long id, Principal connectedUser);
 }
