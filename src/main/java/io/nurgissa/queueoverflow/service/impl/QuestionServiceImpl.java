@@ -14,6 +14,8 @@ import io.nurgissa.queueoverflow.models.User;
 import io.nurgissa.queueoverflow.repository.QuestionRepository;
 import io.nurgissa.queueoverflow.repository.TagRepository;
 import io.nurgissa.queueoverflow.repository.UserRepository;
+import io.nurgissa.queueoverflow.repository.dao.QuestionSearchDao;
+import io.nurgissa.queueoverflow.repository.dao.QuestionSearchRequest;
 import io.nurgissa.queueoverflow.request.ChangeQuestionRequest;
 import io.nurgissa.queueoverflow.service.QuestionService;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +24,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -37,6 +37,7 @@ public class QuestionServiceImpl implements QuestionService {
     private final ResponseQuestionDtoMapper questionDtoMapper;
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
+    private final QuestionSearchDao questionSearchDao;
 
     //    @Override
 //    public void createQuestion(CreateQuestionDto createQuestionDto) {
@@ -126,6 +127,11 @@ public class QuestionServiceImpl implements QuestionService {
         else {
             throw new ServiceException("No such question exception");
         }
+    }
+
+    @Override
+    public List<QuestionDto> findAllByCriteria(QuestionSearchRequest searchRequest) {
+        return questionSearchDao.findAllByCriteria(searchRequest).stream().map(questionMapper::questionToQuestionDto).collect(Collectors.toList());
     }
 
     @SneakyThrows

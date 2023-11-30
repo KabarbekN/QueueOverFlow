@@ -1,6 +1,7 @@
 package io.nurgissa.queueoverflow.controller;
 
 import io.nurgissa.queueoverflow.dto.question.CreateQuestionDto;
+import io.nurgissa.queueoverflow.repository.dao.QuestionSearchRequest;
 import io.nurgissa.queueoverflow.request.ChangeQuestionRequest;
 import io.nurgissa.queueoverflow.service.impl.QuestionServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +39,10 @@ public class QuestionController {
             Principal connectedUser){
         questionService.updateQuestion(request, connectedUser);
         return ResponseEntity.accepted().body("Question successfully changed");
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchByCriteria(@RequestBody QuestionSearchRequest questionSearchRequest){
+        return ResponseEntity.ok(questionService.findAllByCriteria(questionSearchRequest));
     }
 }
