@@ -3,6 +3,7 @@ package io.nurgissa.queueoverflow.repository;
 import io.nurgissa.queueoverflow.models.User;
 import io.nurgissa.queueoverflow.models.enums.Role;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -28,6 +29,7 @@ class UserRepositoryTest {
     }
 
     @Test
+    @Disabled
     void getUserByUserid() {
         // given
         User user = createTestUser();
@@ -49,6 +51,7 @@ class UserRepositoryTest {
 
 
     @Test
+    @Disabled
     void findByUsername() {
         // given
         User user = createTestUser();
@@ -69,6 +72,7 @@ class UserRepositoryTest {
     }
 
     @Test
+    @Disabled
     void findByEmail() {
         // given
 

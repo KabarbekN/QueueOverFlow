@@ -1,4 +1,9 @@
-FROM ubuntu:latest
-LABEL authors="Nurgissa"
+FROM openjdk:19-jdk
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /app
+
+COPY target/queueOverFlow-0.0.1-SNAPSHOT.jar /app/queueOverFlow.jar
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "queueOverFlow.jar"]
