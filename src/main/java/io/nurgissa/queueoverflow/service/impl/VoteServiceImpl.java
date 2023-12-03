@@ -39,6 +39,9 @@ public class VoteServiceImpl implements VoteService {
             throw new ServiceException("Vote with this id does not exist");
         Optional<Vote> optionalVote = voteRepository.findById(id);
         Vote vote = optionalVote.get();
+
+
+
         return voteMapper.voteToVoteDto(vote);
     }
 

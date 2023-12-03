@@ -41,8 +41,7 @@ public class UserServiceImpl implements UserService {
     private final AnswerRepository answerRepository;
 
 
-
-@SneakyThrows
+    @SneakyThrows
     public UserDto getUserByID(Long id){
         if (userRepository.findById(id).isEmpty()){
             throw new ServiceException("No user with this id");

@@ -12,17 +12,20 @@ import io.nurgissa.queueoverflow.repository.UserRepository;
 import io.nurgissa.queueoverflow.repository.dao.UserSearchDao;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -68,39 +71,42 @@ class UserServiceImplTest {
         //  given
 
         User user = createTestUser();
-        userRepository.save(user);
-        userRepository.findAll();
-        for (User u: userRepository.findAll()){
-            System.out.println(u);
-        }
-        System.out.println(user);
-        userRepository.getUserByUserid(user.getUserid());
-        System.out.println(user.getUserid());
-        System.out.println(userRepository.getUserByUserid(user.getUserid()));
 
-        when(userRepository.getUserByUserid(user.getUserid())).thenReturn(Optional.of(user));
-        when(userMapper.userToUserDto(user)).thenReturn(new UserDto());
+        when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
+
+        User savedUser = userRepository.save(user);
+
+        assertNotNull(savedUser);
+        UserDto userDto = Mockito.mock(UserDto.class);
+
+        when(userRepository.findById(savedUser.getUserid())).thenReturn(Optional.of(user));
+        when(userRepository.getUserByUserid(savedUser.getUserid())).thenReturn(Optional.of(user));
+        when(userMapper.userToUserDto(Mockito.any(User.class))).thenReturn(userDto);
 
 
         // when
-        userService.getUserByID(user.getUserid());
-        UserDto userDto = userService.getUserByID(user.getUserid());
+//        assertNotNull(userService.getUserByID(savedUser.getUserid()));
+//        System.out.println(userService.getUserByID(savedUser.getUserid()));
+        userDto = userService.getUserByID(savedUser.getUserid());
         // then
 
         assertNotNull(userDto);
         verify(userRepository).getUserByUserid(user.getUserid());
+        verify(userRepository).findById(savedUser.getUserid());
         verify(userMapper).userToUserDto(user);
     }
+
+
 
 
     @Test
     void getUserByID_UserNotFound() {
         // Given
-        Long userId = 1L;
-        when(userRepository.getUserByUserid(userId)).thenReturn(Optional.empty());
+
+//        when(userRepository.getUserByUserid(1L)).thenReturn(Optional.empty());
 
         // When, Then
-        assertThrows(ServiceException.class, () -> userService.getUserByID(userId));
+        assertThrows(ServiceException.class,  () -> userService.getUserByID(1L), "No user with this id");
     }
 
     @Test
@@ -121,13 +127,13 @@ class UserServiceImplTest {
 
 
     private User createTestUser(){
-        Long userId = 1L;
+//        Long userId = 1L;
         String username = "testUser";
         String email = "test@example.com";
         String password = "testPassword";
         String role = "ADMIN";
         User user = User.builder()
-                .userid(userId)
+//                .userid(userId)
                 .username(username)
                 .password(password)
                 .email(email)
