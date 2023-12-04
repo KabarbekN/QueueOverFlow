@@ -14,6 +14,7 @@ import io.nurgissa.queueoverflow.repository.QuestionRepository;
 import io.nurgissa.queueoverflow.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
@@ -31,8 +33,11 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @SneakyThrows
     public Comment findById(Long id) {
-        if (commentRepository.findById(id).isEmpty())
+        if (commentRepository.findById(id).isEmpty()) {
+            log.info("Attempt to find comment by not existing id" + id);
             throw new ServiceException("No such comment with this id");
+        }
+        log.info("Comment by id " + id + " was retrieved");
         return commentRepository.findById(id).get();
     }
 
@@ -42,6 +47,7 @@ public class CommentServiceImpl implements CommentService {
         System.out.println(createCommentDto);
         System.out.println(questionRepository.findByQuestionid(createCommentDto.getAttributeId()));
         if (questionRepository.findByQuestionid(createCommentDto.getAttributeId()).isEmpty()){
+            log.info("Attempt to comment question that does not exist" +createCommentDto.getAttributeId());
             throw new ServiceException("No such question");
         }
         User user = checkForUserAuthorityAndReturnUser(connectedUser);
@@ -54,12 +60,15 @@ public class CommentServiceImpl implements CommentService {
                 .createdTime(System.currentTimeMillis() / 1000)
                 .build();
         commentRepository.save(comment);
+        log.info("New comment was saved by " + user.getUsername() + " comment: " + comment.getCommentId() );
+
     }
 
     @Override
     @SneakyThrows
     public void createCommentForAnswer(CreateCommentDto createCommentDto, Principal connectedUser) {
         if (answerRepository.findById(createCommentDto.getAttributeId()).isEmpty()){
+            log.info("Attempt to comment answer that does not exist" + createCommentDto.getAttributeId());
             throw new ServiceException("No such answer");
         }
         User user = checkForUserAuthorityAndReturnUser(connectedUser);
@@ -71,8 +80,9 @@ public class CommentServiceImpl implements CommentService {
                 .author(user)
                 .createdTime(System.currentTimeMillis() / 1000)
                 .build();
-
         commentRepository.save(comment);
+        log.info("New answer was saved by " + user.getUsername() + " comment: " + comment.getCommentId() );
+
     }
 
     @Override
@@ -86,6 +96,7 @@ public class CommentServiceImpl implements CommentService {
         if (!Objects.equals(comment.getAuthor().getUserid(), user.getUserid())){
             throw new ServiceException("No such authority");
         }
+        log.info("Comment was deleted by id: " + id);
         commentRepository.deleteById(id);
     }
 
@@ -93,10 +104,15 @@ public class CommentServiceImpl implements CommentService {
     @SneakyThrows
     private User checkForUserAuthorityAndReturnUser(Principal connectedUser){
         if (!(connectedUser instanceof UsernamePasswordAuthenticationToken)) {
+            log.info("Not connected user");
+
             throw new NotFoundException("User not registered");
+
         }
         var user = (User)((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
         if (user == null){
+            log.info("Not connected user");
+
             throw new NotFoundException("User not registered");
         }
         return user;

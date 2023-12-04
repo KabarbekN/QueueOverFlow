@@ -13,6 +13,7 @@ import io.nurgissa.queueoverflow.repository.QuestionRepository;
 import io.nurgissa.queueoverflow.service.AnswerService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class AnswerServiceImpl implements AnswerService {
     private final AnswerRepository answerRepository;
@@ -32,7 +34,7 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     public List<ResponseAnswerDto> getAllAnswersForQuestion(Long questionId) {
         List<Answer> answers = answerRepository.findAllByQuestionQuestionid(questionId);
-
+        log.info("List of answer dto was returned");
         return answers.stream().map(responseAnswerDtoMapper::answerToResponseAnswerDto).collect(Collectors.toList());
     }
 
@@ -42,6 +44,7 @@ public class AnswerServiceImpl implements AnswerService {
         User user = checkForUserAuthorityAndReturnUser(connectedUser);
         Optional<Question> optionalQuestion = questionRepository.findByQuestionid(createAnswerDto.getQuestionId());
         if (optionalQuestion.isEmpty()){
+            log.info("Not existing question id was searched");
             throw new ServiceException("Question do not exist by this id");
         }
 
@@ -53,6 +56,7 @@ public class AnswerServiceImpl implements AnswerService {
                 .question(question)
                 .createdTime(System.currentTimeMillis() / 1000)
                 .build();
+        log.info(answer.getAuthor() + " " + answer.getContent() + " was saved");
         answerRepository.save(answer);
     }
 
@@ -66,6 +70,7 @@ public class AnswerServiceImpl implements AnswerService {
         Optional<Answer> optionalAnswer = answerRepository.findById(id);
         Answer answer = optionalAnswer.get();
         if (!Objects.equals(answer.getAuthor().getUserid(), user.getUserid())){
+            log.info(user.getUsername() + " try to delete other users answer by id");
             throw new ServiceException("No such authority");
         }
 
@@ -76,10 +81,12 @@ public class AnswerServiceImpl implements AnswerService {
     @SneakyThrows
     private User checkForUserAuthorityAndReturnUser(Principal connectedUser){
         if (!(connectedUser instanceof UsernamePasswordAuthenticationToken)) {
+            log.info("Not connected user");
             throw new NotFoundException("User not registered");
         }
         var user = (User)((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
         if (user == null){
+            log.info("Not connected user");
             throw new NotFoundException("User not registered");
         }
         return user;

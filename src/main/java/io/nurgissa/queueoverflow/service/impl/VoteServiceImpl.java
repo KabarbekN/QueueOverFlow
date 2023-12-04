@@ -15,6 +15,7 @@ import io.nurgissa.queueoverflow.repository.VoteRepository;
 import io.nurgissa.queueoverflow.service.VoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ import java.util.Optional;
 
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class VoteServiceImpl implements VoteService {
     private final VoteRepository voteRepository;
@@ -54,10 +56,12 @@ public class VoteServiceImpl implements VoteService {
             Optional<Vote> optionalVote = voteRepository.findByQuestionQuestionid(createVoteDto.getAttributeId());
             Vote vote = optionalVote.get();
             if (Objects.equals(vote.getAuthor().getUserid(), user.getUserid())){
+                log.info("More than one attempt to make vote for specific question");
                 throw new ServiceException("You can not vote more than one time, for same attribute");
             }
         }
         if (createVoteDto.getValue() != 1 && createVoteDto.getValue() != -1){
+            log.info(createVoteDto.getValue() + " is not 1 or -1");
             throw new ServiceException("Value can be only 1 or -1");
         }
 
@@ -75,6 +79,7 @@ public class VoteServiceImpl implements VoteService {
                 .createdTime(System.currentTimeMillis() / 1000)
                 .build();
         voteRepository.save(vote);
+        log.info("new vote for question was saved " + vote.getAuthor() + " " + vote.getVoteId());
     }
 
     @Override
@@ -107,6 +112,7 @@ public class VoteServiceImpl implements VoteService {
                 .createdTime(System.currentTimeMillis() / 1000)
                 .build();
         voteRepository.save(vote);
+        log.info("New vote for answer was saved " + vote.getAuthor() + vote.getVoteId());
 
     }
 

@@ -19,6 +19,7 @@ import io.nurgissa.queueoverflow.repository.UserRepository;
 import io.nurgissa.queueoverflow.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -48,11 +50,13 @@ public class UserServiceImpl implements UserService {
         }
         Optional<User> optionalUser = userRepository.getUserByUserid(id);
         User user = optionalUser.get();
+        log.info("User with id was retrieved by id: " + id);
 
         return userMapper.userToUserDto(user);
     }
 
     public List<UserDto> getAllUsers(){
+        log.info("All users was retrieved");
         return userRepository.findAll().stream().map(userMapper::userToUserDto).collect(Collectors.toList());
     }
 
@@ -71,6 +75,7 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setPassword(passwordEncoder.encode(changePasswordRequest.getConfirmationPassword()));
+        log.info("users new password was saved");
         userRepository.save(user);
 
     }
@@ -94,6 +99,8 @@ public class UserServiceImpl implements UserService {
         numberOfAnswers = answers.get().toArray().length;
         Optional<List<Comment>> comments = commentRepository.findByAuthor(systemUser);
         numberOfComments = comments.get().toArray().length;
+
+        log.info("User try to attempt his own page");
 
         return Optional.ofNullable(UserProfileDto.builder()
                 .numberOfQuestions(numberOfQuestions)

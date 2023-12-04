@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class TagController {
     private final TagService tagService;
 
-//    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     @PostMapping
     public ResponseEntity<?> createTag(@RequestBody TagDto tagDto){
         System.out.println("ffsfdsf");

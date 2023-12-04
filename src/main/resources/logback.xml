@@ -1,0 +1,44 @@
+<configuration>
+
+    <property name="HOME_LOG" value="logs/app.log"/>
+
+    <!-- Console Appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSSXXX} %highlight(%green(%-1level)) [           %thread] %cyan(%logger{36}:%L) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- File Appender -->
+    <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${HOME_LOG}</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/archived/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d %p %c{1} [%t] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Logger Configuration -->
+    <logger name="io.nurgissa" level="debug" additivity="false">
+        <appender-ref ref="CONSOLE"/> <!-- Reference the Console Appender -->
+        <appender-ref ref="FILE-ROLLING"/>
+    </logger>
+
+    <!-- Root Logger Configuration -->
+    <root level="error">
+        <appender-ref ref="CONSOLE"/> <!-- Reference the Console Appender -->
+        <appender-ref ref="FILE-ROLLING"/>
+    </root>
+    <root level="info">
+        <appender-ref ref="CONSOLE"/> <!-- Reference the Console Appender -->
+        <appender-ref ref="FILE-ROLLING"/>
+    </root>
+
+</configuration>

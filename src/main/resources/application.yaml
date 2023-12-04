@@ -3,8 +3,8 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yaml
   datasource:
     driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://localhost:5433/queueOverFlow
-    url: jdbc:postgresql://localhost:5432/queueOverFlow
+    url: jdbc:postgresql://localhost:5433/queueOverFlow
+#    url: jdbc:postgresql://localhost:5432/queueOverFlow
 
     #    url: jdbc:postgresql://postgres2:5433/queueOverFlow
     username: root
@@ -27,3 +27,7 @@ application:
       expiration: 86400000
       refresh-token:
         expiration: 604800000
+
+#logging:
+#  file:
+#    name: app.log

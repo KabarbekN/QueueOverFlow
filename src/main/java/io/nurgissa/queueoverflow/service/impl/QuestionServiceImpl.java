@@ -20,6 +20,7 @@ import io.nurgissa.queueoverflow.request.ChangeQuestionRequest;
 import io.nurgissa.queueoverflow.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class QuestionServiceImpl implements QuestionService {
     private final QuestionRepository questionRepository;
@@ -53,13 +55,8 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     @SneakyThrows
     public void createQuestion(CreateQuestionDto createQuestionDto, Principal connectedUser) {
-        if (!(connectedUser instanceof UsernamePasswordAuthenticationToken)) {
-            throw new NotFoundException("User not registered");
-        }
-        var user = (User)((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
-        if (user == null){
-            throw new NotFoundException("User not registered");
-        }
+
+        User user = checkForUserAuthorityAndReturnUser(connectedUser);
 
         Set<Tag> tags = new HashSet<>();
         for (Long id : createQuestionDto.getTagIds()) {
@@ -73,6 +70,7 @@ public class QuestionServiceImpl implements QuestionService {
                 .createdTime(System.currentTimeMillis() / 1000)
                 .build();
         questionRepository.save(question);
+        log.info("New question was saved " + question.getAuthor() + " by id: " + question.getQuestionid() );
     }
 
 
@@ -83,6 +81,7 @@ public class QuestionServiceImpl implements QuestionService {
         if (question.isEmpty()){
             throw new ServiceException("Question not found");
         }
+        log.info("return question dto for request: " );
         return Optional.ofNullable(questionDtoMapper.questionToResponseQuestionDto(question.get()));
     }
 
@@ -97,6 +96,7 @@ public class QuestionServiceImpl implements QuestionService {
                 questionRepository.deleteById(id);
             }
             else {
+                log.info("Attempt to delete question without authority " + user.getUsername() + " question " + id);
                 throw new ServiceException("Do not have such authority to delete question");
             }
         }
@@ -119,6 +119,7 @@ public class QuestionServiceImpl implements QuestionService {
                         .content(request.getNewContent())
                                         .build();
                 questionRepository.save(updatedQuestion);
+                log.info("Question was updated " + request.getQuestionId() );
             }
             else {
                 throw new ServiceException("Do not have such authority to delete question");
@@ -131,16 +132,21 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<QuestionDto> findAllByCriteria(QuestionSearchRequest searchRequest) {
+        log.info("Find all question by criteria " + searchRequest.getContent() + " " + searchRequest.getTitle());
         return questionSearchDao.findAllByCriteria(searchRequest).stream().map(questionMapper::questionToQuestionDto).collect(Collectors.toList());
     }
 
     @SneakyThrows
     private User checkForUserAuthorityAndReturnUser(Principal connectedUser){
         if (!(connectedUser instanceof UsernamePasswordAuthenticationToken)) {
+            log.info("Not connected user");
+
             throw new NotFoundException("User not registered");
         }
         var user = (User)((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
         if (user == null){
+            log.info("Not connected user");
+
             throw new NotFoundException("User not registered");
         }
         return user;
