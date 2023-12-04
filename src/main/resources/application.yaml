@@ -4,7 +4,7 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
 #    url: jdbc:postgresql://localhost:5433/queueOverFlow
-    url: jdbc:postgresql://my-postgres-con:5432/queueOverFlow
+    url: jdbc:postgresql://localhost:5432/queueOverFlow
 
     #    url: jdbc:postgresql://postgres2:5433/queueOverFlow
     username: root
