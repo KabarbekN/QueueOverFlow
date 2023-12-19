@@ -35,9 +35,7 @@ import java.util.stream.Collectors;
 public class QuestionServiceImpl implements QuestionService {
     private final QuestionRepository questionRepository;
     private final QuestionMapper questionMapper;
-    private final UserMapper userMapper;
     private final ResponseQuestionDtoMapper questionDtoMapper;
-    private final UserRepository userRepository;
     private final TagRepository tagRepository;
     private final QuestionSearchDao questionSearchDao;
 

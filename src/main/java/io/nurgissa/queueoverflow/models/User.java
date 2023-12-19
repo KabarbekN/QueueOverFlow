@@ -40,6 +40,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "emailconfirmed", columnDefinition = "BOOLEAN DEFAULT FALSE", insertable = true, updatable = true)
+    private Boolean emailConfirmed;
+
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<JwtToken> tokens;

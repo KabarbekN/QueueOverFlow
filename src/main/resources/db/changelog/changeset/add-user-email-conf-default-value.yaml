@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: update-user-column-email-confirmation-default
+      author: admin
+      changes:
+        - update:
+            tableName: users
+            columns:
+              - column:
+                  name: emailconfirmed
+                  type: BOOLEAN
+                  defaultValueBoolean: false

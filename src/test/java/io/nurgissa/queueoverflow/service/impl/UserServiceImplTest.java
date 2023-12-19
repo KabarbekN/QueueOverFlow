@@ -31,8 +31,6 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-@DataJpaTest
-@AutoConfigureDataJpa
 class UserServiceImplTest {
 
     @Mock
@@ -64,7 +62,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    @Disabled
+//    @Disabled
     void getUserByID() {
         //  given
 
@@ -89,7 +87,7 @@ class UserServiceImplTest {
         // then
 
         assertNotNull(userDto);
-        verify(userRepository).getUserByUserid(user.getUserid());
+        verify(userRepository).getUserByUserid(user.getUserid() );
         verify(userRepository).findById(savedUser.getUserid());
         verify(userMapper).userToUserDto(user);
     }
@@ -98,7 +96,7 @@ class UserServiceImplTest {
 
 
     @Test
-    @Disabled
+//    @Disabled
     void getUserByID_UserNotFound() {
         // Given
 
@@ -110,6 +108,14 @@ class UserServiceImplTest {
 
     @Test
     void getAllUsers() {
+//        User user = createTestUser();
+//        List<User> users = Mockito.mock();
+//
+//        when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
+//
+//        User savedUser = userRepository.save(user);
+//
+//        when(userRepository.findAll()).thenReturn()
     }
 
     @Test

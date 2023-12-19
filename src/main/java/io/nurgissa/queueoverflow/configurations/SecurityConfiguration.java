@@ -53,6 +53,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(GET, "/api/v1/answer/**").permitAll()
                                 .requestMatchers(GET, "/api/v1/comment/**").permitAll()
                                 .requestMatchers(GET, "/api/v1/user/**").permitAll()
+                                .requestMatchers(POST, "/api/v1/messages/**").permitAll()
 
                                 .requestMatchers("/api/v1/user/**").hasAnyRole(USER.name(), ADMIN.name(), MODERATOR.name())
 //                                .requestMatchers(GET, "/api/v1/user/**").hasAnyRole(USER.name())

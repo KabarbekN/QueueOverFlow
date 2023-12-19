@@ -19,4 +19,8 @@ databaseChangeLog:
       file: db/changelog/changeset/update-user-table.yaml
   - include:
       file: db/changelog/changeset/update-vote-table.yaml
+  - include:
+      file: db/changelog/changeset/add-user-email-confirmation.yaml
+  - include:
+      file: db/changelog/changeset/add-user-email-conf-default-value.yaml
 
