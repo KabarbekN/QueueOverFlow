@@ -1,0 +1,51 @@
+2023-12-06 12:47:30,466 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2023-12-06 12:47:30,498 INFO i.n.q.QueueOverFlowApplication [main] Starting QueueOverFlowApplication using Java 19.0.1 with PID 16752 (C:\Users\Nurgissa\IdeaProjects\queueOverFlow\target\classes started by Nurgissa in C:\Users\Nurgissa\IdeaProjects\queueOverFlow)
+2023-12-06 12:47:30,499 DEBUG i.n.q.QueueOverFlowApplication [main] Running with Spring Boot v3.1.5, Spring v6.0.13
+2023-12-06 12:47:30,499 INFO i.n.q.QueueOverFlowApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-12-06 12:47:31,702 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-06 12:47:31,758 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 48 ms. Found 7 JPA repository interfaces.
+2023-12-06 12:47:32,139 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2023-12-06 12:47:32,144 INFO o.a.c.h.Http11NioProtocol [main] Initializing ProtocolHandler ["http-nio-8080"]
+2023-12-06 12:47:32,146 INFO o.a.c.c.StandardService [main] Starting service [Tomcat]
+2023-12-06 12:47:32,146 INFO o.a.c.c.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-12-06 12:47:32,204 INFO o.a.c.c.C.[.[.[/] [main] Initializing Spring embedded WebApplicationContext
+2023-12-06 12:47:32,204 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1677 ms
+2023-12-06 12:47:32,278 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2023-12-06 12:47:32,430 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5980fa73
+2023-12-06 12:47:32,431 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-12-06 12:47:32,532 INFO l.database [main] Set default schema name to public
+2023-12-06 12:47:32,750 INFO l.changelog [main] Reading from public.databasechangelog
+2023-12-06 12:47:32,756 INFO l.executor [main] Changelog query completed.
+2023-12-06 12:47:32,833 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-06 12:47:32,873 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.2.13.Final
+2023-12-06 12:47:32,875 INFO o.h.c.Environment [main] HHH000406: Using bytecode reflection optimizer
+2023-12-06 12:47:33,056 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-06 12:47:33,089 WARN o.h.o.deprecation [main] HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2023-12-06 12:47:33,902 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-06 12:47:33,904 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-06 12:47:34,141 INFO o.s.d.j.r.q.QueryEnhancerFactory [main] Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-12-06 12:47:34,444 DEBUG i.n.q.c.JwtAuthenticationFilter [main] Filter 'jwtAuthenticationFilter' configured for use
+2023-12-06 12:47:34,709 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-06 12:47:34,926 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1ef48e49, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@145bcb73, org.springframework.security.web.context.SecurityContextHolderFilter@4c96b175, org.springframework.security.web.header.HeaderWriterFilter@42eaa429, org.springframework.security.web.authentication.logout.LogoutFilter@159b4611, io.nurgissa.queueoverflow.configurations.JwtAuthenticationFilter@448861e5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7ec49d9b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@70b716a8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6716d0e1, org.springframework.security.web.session.SessionManagementFilter@60ccf498, org.springframework.security.web.access.ExceptionTranslationFilter@87060c0, org.springframework.security.web.access.intercept.AuthorizationFilter@40f95b87]
+2023-12-06 12:47:35,143 INFO o.a.c.h.Http11NioProtocol [main] Starting ProtocolHandler ["http-nio-8080"]
+2023-12-06 12:47:35,157 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2023-12-06 12:47:35,164 INFO i.n.q.QueueOverFlowApplication [main] Started QueueOverFlowApplication in 4.952 seconds (process running for 7.73)
+2023-12-06 13:36:17,139 INFO o.a.c.c.C.[.[.[/] [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-06 13:36:17,141 INFO o.s.w.s.DispatcherServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2023-12-06 13:36:17,143 INFO o.s.w.s.DispatcherServlet [http-nio-8080-exec-1] Completed initialization in 2 ms
+2023-12-06 13:36:17,713 INFO o.s.a.AbstractOpenApiResource [http-nio-8080-exec-9] Init duration for springdoc-openapi is: 220 ms
+2023-12-06 13:46:02,981 INFO i.n.q.a.AuthenticationService [http-nio-8080-exec-6] drevnii008: registered
+2023-12-06 13:46:24,046 INFO i.n.q.s.i.TagServiceImpl [http-nio-8080-exec-7] Same tag creation attempt spring-security-jwt123
+2023-12-06 13:46:58,411 INFO i.n.q.s.i.QuestionServiceImpl [http-nio-8080-exec-9] New question was saved User{userid=14, username='drevnii008', password='$2a$10$Qb7hFBj8udS68MwjHtHtTOvVruLUZ0JW6No0hRwaAJHTap49eUjMa', email='aikabarbek@gmail.com', role=MODERATOR} by id: 6
+2023-12-06 13:47:05,957 INFO i.n.q.s.i.QuestionServiceImpl [http-nio-8080-exec-5] return question dto for request: 
+2023-12-06 13:47:42,026 INFO i.n.q.s.i.AnswerServiceImpl [http-nio-8080-exec-10] User{userid=14, username='drevnii008', password='$2a$10$Qb7hFBj8udS68MwjHtHtTOvVruLUZ0JW6No0hRwaAJHTap49eUjMa', email='aikabarbek@gmail.com', role=MODERATOR} Just study in just code make good diploma project and it is all my friend dfjshdfhsd  was saved
+2023-12-06 13:47:46,484 INFO i.n.q.s.i.QuestionServiceImpl [http-nio-8080-exec-2] return question dto for request: 
+2023-12-06 13:48:50,007 INFO i.n.q.s.i.CommentServiceImpl [http-nio-8080-exec-6] New comment was saved by drevnii008 comment: 5
+2023-12-06 13:48:54,118 INFO i.n.q.s.i.QuestionServiceImpl [http-nio-8080-exec-8] return question dto for request: 
+2023-12-06 13:49:21,547 INFO i.n.q.s.i.VoteServiceImpl [http-nio-8080-exec-7] new vote for question was saved User{userid=14, username='drevnii008', password='$2a$10$Qb7hFBj8udS68MwjHtHtTOvVruLUZ0JW6No0hRwaAJHTap49eUjMa', email='aikabarbek@gmail.com', role=MODERATOR} 5
+2023-12-06 13:49:27,162 INFO i.n.q.s.i.QuestionServiceImpl [http-nio-8080-exec-1] return question dto for request: 
+2023-12-06 13:49:54,022 INFO i.n.q.s.i.UserServiceImpl [http-nio-8080-exec-9] users new password was saved
+2023-12-06 13:50:39,255 INFO i.n.q.s.i.QuestionServiceImpl [http-nio-8080-exec-5] Find all question by criteria become Halyk
+2023-12-06 14:29:41,939 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-06 14:29:41,941 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-12-06 14:29:44,075 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.

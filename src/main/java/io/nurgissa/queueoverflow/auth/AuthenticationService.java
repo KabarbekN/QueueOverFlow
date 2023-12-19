@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.nurgissa.queueoverflow.configurations.JwtService;
 import io.nurgissa.queueoverflow.models.User;
 import io.nurgissa.queueoverflow.repository.UserRepository;
+import io.nurgissa.queueoverflow.service.EmailService;
 import io.nurgissa.queueoverflow.token.JwtToken;
 import io.nurgissa.queueoverflow.token.TokenRepository;
 import io.nurgissa.queueoverflow.token.TokenType;
@@ -29,6 +30,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
     public AuthenticationResponse register(RegisterRequest request){
         User user = User.builder()
                 .username(request.getUsername())
@@ -43,6 +45,7 @@ public class AuthenticationService {
         saveUserToken(savedUser, jwtToken);
 
         log.info(savedUser.getUsername() + ": registered");
+        emailService.sendSimpleMailMessage(user.getUsername(), user.getEmail(), " ");
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
